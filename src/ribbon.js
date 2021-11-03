@@ -2,6 +2,8 @@ import Env from './env'
 import * as THREE from 'three'
 import { VertexNormalsHelper } from 'three/examples/jsm/helpers/VertexNormalsHelper'
 
+import vertexShader from './shaders/ribbon/vertex.glsl'
+import fragmentShader from './shaders/ribbon/fragment.glsl'
 
 
 class Bone {
@@ -137,7 +139,7 @@ export default class Ribbon {
       let y = positions[i+1]
       let z = positions[i+2]
       y -= this.params.height / 2
-      //positions[i+1] = y
+      positions[i+1] = y
     }
 
     this.geometry.attributes.position.needsUpdate = true
@@ -169,10 +171,22 @@ export default class Ribbon {
   }
 
   setMaterial() {
-    this.material = new THREE.MeshStandardMaterial({
-      wireframe: true,
+    // this.material = new THREE.MeshStandardMaterial({
+    //   wireframe: true,
+    //   side: THREE.DoubleSide,
+    //   color: 0xf8e2b3
+    // })
+    this.material = new THREE.ShaderMaterial({
+      uniforms: {
+        uColor: {
+          value: new THREE.Color(0xf8e2b3)
+        }
+      },
       side: THREE.DoubleSide,
-      color: 0xf8e2b3
+      wireframe: true,
+      lights: false,
+      vertexShader,
+      fragmentShader
     })
   }
 
