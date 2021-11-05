@@ -57,7 +57,7 @@ export default class Ribbon {
 
   init() {
     this.params = {
-      width: 3,
+      width: 5,
       height: 30,
       widthSegments: 5,
       heightSegments: 100
@@ -217,6 +217,19 @@ export default class Ribbon {
     map.wrapT = THREE.RepeatWrapping
     map.repeat.set(2, 2)
 
+    const inkMap = new THREE.TextureLoader().load('textures/guohua.png', e=> {
+      this.material.uniforms.inkMap.value = inkMap
+
+      this.material.uniforms.inkMap.value .wrapS = THREE.RepeatWrapping
+      this.material.uniforms.inkMap.value .wrapT = THREE.RepeatWrapping
+      this.material.uniforms.inkMap.value .repeat.set(100, 100)
+      this.material.uniforms.inkMap.value .rotation = Math.PI * 2
+    })
+    inkMap.wrapS = THREE.RepeatWrapping
+    inkMap.wrapT = THREE.RepeatWrapping
+    inkMap.repeat.set(100, 100)
+    inkMap.rotation = Math.PI * 2
+
     this.material = new THREE.ShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
         UniformsLib.common,
@@ -245,6 +258,10 @@ export default class Ribbon {
 
           metalness: {
             value: 0
+          },
+
+          inkMap: {
+            value: inkMap
           },
 
           normalMap: {

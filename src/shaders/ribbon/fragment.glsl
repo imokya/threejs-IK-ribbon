@@ -73,7 +73,7 @@ uniform vec3 uColor;
 
 varying vec3 vPosition;
 
-uniform sampler2D uMap;
+uniform sampler2D inkMap;
 
 void main() {
   
@@ -93,9 +93,18 @@ void main() {
 
 	#include <logdepthbuf_fragment>
 	
+
+	vec2 vAngle = vec2(cos(PI/2.0), sin(PI/2.0));
+	vec2 inkUv = vUv * mat2(vAngle.x, vAngle.y, -vAngle.y, vAngle.x); 
+
+
+
+	vec4 inkColor = texture2D(inkMap, inkUv);
 	vec4 texelColor = texture2D( map, vUv );
+
 	//texelColor = mapTexelToLinear( texelColor );
-	diffuseColor *= texelColor * vec4(uColor, 1.0) * 2.6;
+	vec4 color = mix(inkColor, texelColor, 0.1);
+	diffuseColor *= inkColor * texelColor;
 
 	#include <color_fragment>
 	#include <alphamap_fragment>

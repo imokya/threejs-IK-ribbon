@@ -58,12 +58,17 @@ void main() {
 
   #endif
 
-  vNormal = normal;
+
+	vec3 objNormal = normal;
 
   vec3 pos = position;
 
   vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
-  modelPosition.z += noise3d(vec3(modelPosition.x+3.0, 50.0, modelPosition.y+5.0)) * 0.35;
+	float noise = noise3d(vec3(modelPosition.x+3.0, 50.0, modelPosition.y+5.0)) * 0.35;
+  modelPosition.z += noise;
+	objNormal.z += noise;
+
+	vNormal = normalize(objNormal);
   
   vec4 viewPosition = viewMatrix * modelPosition;
   vPosition = modelPosition.xyz;
