@@ -80,7 +80,7 @@ class Env {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.outputEncoding = THREE.sRGBEncoding
     this.renderer.physicallyCorrectLights = false
-    this.renderer.setClearColor(0x222222)
+    this.renderer.setClearColor(0xafbdad)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000)
     this.camera.position.set(0, 0, 12)
