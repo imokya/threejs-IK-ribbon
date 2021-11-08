@@ -22,7 +22,7 @@ class Env {
     this._setTime()
     this._createScene()
     this._createEvent()
-    //this._createControls()
+    this._createControls()
     //this._createPane()
     this._createRibbon()
     this.render()
@@ -83,7 +83,7 @@ class Env {
     this.renderer.setClearColor(0xafbdad)
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 1000)
-    this.camera.position.set(0, 0, 12)
+    this.camera.position.set(0, 0, 15)
     document.querySelector('#app').appendChild(this.renderer.domElement)
   }
 
