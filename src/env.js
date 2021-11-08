@@ -23,7 +23,7 @@ class Env {
     this._createScene()
     this._createEvent()
     //this._createControls()
-    this._createPane()
+    //this._createPane()
     this._createRibbon()
     this.render()
   }

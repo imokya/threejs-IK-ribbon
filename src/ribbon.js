@@ -14,6 +14,7 @@ class Bone {
     this.size = size
     this.points = []
     this.axeDir = new THREE.Vector3()
+    this.angle = 0
   }
 
   add(point) {
@@ -57,10 +58,10 @@ export default class Ribbon {
 
   init() {
     this.params = {
-      width: 5,
-      height: 30,
-      widthSegments: 5,
-      heightSegments: 100
+      width: 10,
+      height: 60,
+      widthSegments: 10,
+      heightSegments: 200
     }
 
     this.setGeometry()
@@ -71,7 +72,7 @@ export default class Ribbon {
   }
 
   setLights() {
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85)
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2)
 
     this.scene.add(ambientLight)
 
@@ -217,7 +218,7 @@ export default class Ribbon {
     map.wrapT = THREE.RepeatWrapping
     map.repeat.set(2, 2)
 
-    const inkMap = new THREE.TextureLoader().load('textures/guohua.png', e=> {
+    const inkMap = new THREE.TextureLoader().load('textures/r1.png', e=> {
       this.material.uniforms.inkMap.value = inkMap
 
       this.material.uniforms.inkMap.value .wrapS = THREE.RepeatWrapping
@@ -245,7 +246,7 @@ export default class Ribbon {
           },
 
           roughness: {
-            value: 1
+            value: 0.5
           },
 
           emissive: {
@@ -267,11 +268,7 @@ export default class Ribbon {
           normalMap: {
             value: normalMap
           },
-
-          roughnessMap: {
-            value: normalMap
-          },
-
+          
           map: {
             value: map
           },
@@ -321,8 +318,17 @@ export default class Ribbon {
     // this.scene.add(this.helper)
   }
 
+  updateTarget() {
+    this.angle += 0.03
+    const x = Math.cos(this.angle) * 20
+    const y = Math.cos(this.angle * 3) * 5
+    const z = Math.sin(this.angle * 2) * 10
+    this.target.set(x, y, z)
+  }
+
   update() {
     if(this.target) {
+      this.updateTarget()
       this.follow(this.target)
       this.updateGeometry()
       

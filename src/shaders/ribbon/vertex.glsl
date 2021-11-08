@@ -64,7 +64,7 @@ void main() {
   vec3 pos = position;
 
   vec4 modelPosition = modelMatrix * vec4(pos, 1.0);
-	float noise = noise3d(vec3(modelPosition.x+3.0, 50.0, modelPosition.y+5.0)) * 0.35;
+	float noise = noise3d(vec3(modelPosition.x+2.0, 50.0, modelPosition.y+2.0)) * 0.3;
   modelPosition.z += noise;
 	objNormal.z += noise;
 
